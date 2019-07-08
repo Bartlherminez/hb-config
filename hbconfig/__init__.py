@@ -7,8 +7,8 @@ import os.path
 class HBConfigMeta(type):
     class __HBConfigMeta:
 
-        base_dir = "./config/"
-        base_fname = "config"
+        base_dir = "./speech_to_text/config/"
+        base_fname = "kaggle_movie_review"
 
         def __init__(self, is_new=False):
             self.is_new = is_new
@@ -30,7 +30,6 @@ class HBConfigMeta(type):
                 path = fname
                 fname, fextension = os.path.splitext(path)
                 self.read_fname = fname
-
                 return self._read_file(path, fextension)
 
             files = os.listdir(self.base_dir)
@@ -77,9 +76,8 @@ class HBConfigMeta(type):
                 return key.strip()
 
             config = ""
-            with open(path, 'rb') as infile:
+            with open(path, 'r') as infile:
                 for line in infile.readlines():
-                    line = line.decode('utf-8')
                     if DESCRIPTION_SEPARATOR in line:
                         key = line.split(":")[0]
                         key = _preprocessing_key(key)
